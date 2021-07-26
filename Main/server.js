@@ -4,17 +4,18 @@ const path = require("path");
 const fs = require("fs");
 const notes = require("./db/db.json")
 
+//Creates an express server and Sets an Initial Port
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
+//Code for Data parsing and file access
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
 currentID = notes.length;
 
-
+/*Api get Requests-Code that shows content when User visits the page*/
 app.get("/api/notes", function (req, res) {
     return res.json(notes);
 });
@@ -26,7 +27,7 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
-
+/*Binds and listens the Connections on the Port*/
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
 });
@@ -42,7 +43,7 @@ app.post("/api/notes", function (req, res) {
     return res.status(200).end();
 });
 
-
+/*Api Delete request-Filters Data by id and gets the requested data */
 app.delete("/api/notes/:id", function (req, res) {
     res.send('Got a DELETE request at /api/notes/:id')
     var id = req.params.id;
@@ -58,7 +59,7 @@ app.delete("/api/notes/:id", function (req, res) {
 })
 
 
-
+/*Function to write new data to db.json file*/
 function rewriteNotes() {
     fs.writeFile("db/db.json", JSON.stringify(notes), function (err) {
         if (err) {
