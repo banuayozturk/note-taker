@@ -1,12 +1,12 @@
 //Dependencies
-const express = require("express");
-const path = require("path");
-const fs = require("fs");
-const notes = require("./db/db.json")
+var express = require("express");
+var path = require("path");
+var fs = require("fs");
+var notes = require("./db/db.json")
 
 //Creates an express server and Sets an Initial Port
-const app = express();
-const PORT = process.env.PORT || 3000;
+var app = express();
+var PORT = process.env.PORT || 3000;
 
 //Code for Data parsing and file access
 app.use(express.urlencoded({ extended: true }));
